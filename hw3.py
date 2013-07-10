@@ -29,9 +29,8 @@ cv_array = Comments_train.toarray()[0:3947]
 clf = LogisticRegression(C=.8).fit(cv_array, Insults_train)
 
 Insults_test_predict = clf.predict(Comments_train.toarray()[3947:])
-probas_Insults_test_predict_logistic = clf.predict_proba(Comments_train.toarray()[3947:])
-df = pd.DataFrame(probas_Insults_test_predict_logistic, columns = ['a', 'b'])
-df.to_csv("/Users/davidlogsdon/data_science/Homework_3/FINAL_PREDICTIONS.csv")
-
+probas_Insults_test_predict_logistic = clf.predict_proba(Comments_train.toarray()[3947:])[:,1]
+df = pd.DataFrame({'id': test_data.id, 'insult': probas_Insults_test_predict_logistic})
+df.to_csv("/Users/davidlogsdon/data_science/Homework_3/FINAL_PREDICTIONS.csv", index=False)
 #note, not posting testing code, found naive bayes to be less effective
 #a model and removed it from final submission
